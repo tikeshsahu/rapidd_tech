@@ -1,16 +1,16 @@
 # rapidd_tech_assignment
 
-A new Flutter project.
+How to Run the App (In Terminal): 
+1). git clone https://github.com/tikeshsahu/rapidd_tech.git
+2). Navigate to Project directory 
+3). flutter clean 
+4). flutter pub get 
+5). flutter run
 
-## Getting Started
+A simple To-Do app made using Flutter Framework. Where user can add Tasks which have its Title & Description. User can edit, delete and share the task to anyone and can mail providing an Email address.
 
-This project is a starting point for a Flutter application.
+Project Structure - MVVM,
+State Management - Used Provider,
+Package used:- Provider, Firebase Auth, Cloud Firestore, Url launcher and more.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Feel free to reach out if any questions.
