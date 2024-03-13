@@ -38,18 +38,23 @@ class _AddTaskModalState extends State<AddTaskModal> {
         padding: const EdgeInsets.all(12),
         height: size.height * 0.5,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const Text(
+              'Add Task',
+              style: TextStyle(fontSize: 25),
+            ),
+            const SizedBox(height: 20),
             TextField(
               controller: titleController,
               decoration: const InputDecoration(
                 labelText: 'Enter Title',
                 border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(horizontal: 6),
               ),
             ),
             const SizedBox(height: 10),
             TextField(
-              autocorrect: true,
               maxLines: 3,
               keyboardType: TextInputType.multiline,
               controller: descriptionController,

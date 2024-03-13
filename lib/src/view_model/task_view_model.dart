@@ -7,9 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 class TaskViewModel extends ChangeNotifier {
   final FirebaseFirestore data = FirebaseFirestore.instance;
-  final String _userId = StorageService.instance.fetch(AppUtils.userId) ?? '';
-
-  String get userId => _userId;
 
   Stream<List<Task>> getTasks() {
     try {
@@ -45,6 +42,14 @@ class TaskViewModel extends ChangeNotifier {
       await data.collection('tasks').doc('doc').collection("myTasks").doc(id).delete();
     } catch (e) {
       if (kDebugMode) print(e);
+    }
+  }
+
+  Future<void> updateIsDone(String id, bool isDone) async {
+    try {
+      await data.collection('tasks').doc('doc').collection("myTasks").doc(id).update({'isDone': isDone});
+    } catch (e) {
+      if (kDebugMode) print("Error updating task: $e");
     }
   }
 

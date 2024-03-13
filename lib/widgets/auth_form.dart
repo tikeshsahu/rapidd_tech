@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rapidd_tech_assignment/auth/auth_view_model.dart';
+import 'package:rapidd_tech_assignment/src/view_model/auth_view_model.dart';
 
 class AuthForm extends StatefulWidget {
   const AuthForm({Key? key}) : super(key: key);

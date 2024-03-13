@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rapidd_tech_assignment/auth/auth_form.dart';
+import 'package:rapidd_tech_assignment/widgets/auth_form.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({Key? key}) : super(key: key);

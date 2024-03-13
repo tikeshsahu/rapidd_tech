@@ -1,4 +1,4 @@
-import 'package:rapidd_tech_assignment/auth/auth_view.dart';
+import 'package:rapidd_tech_assignment/src/view/auth_view.dart';
 import 'package:rapidd_tech_assignment/src/view/task_list_view.dart';
 import 'package:rapidd_tech_assignment/utils/storage_service.dart';
 
@@ -14,7 +14,7 @@ class AppUtils{
 
   static checkUser() {
     if (StorageService.instance.fetch(AppUtils.userId) != null) {
-      return const TaskListView();
+      return TaskListView();
     } else {
       return const AuthView();
     }

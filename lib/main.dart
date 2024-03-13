@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:rapidd_tech_assignment/auth/auth_view_model.dart';
+import 'package:rapidd_tech_assignment/src/view_model/auth_view_model.dart';
 import 'package:rapidd_tech_assignment/src/view_model/task_view_model.dart';
 import 'package:rapidd_tech_assignment/utils/app_utils.dart';
 

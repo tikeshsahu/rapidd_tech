@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rapidd_tech_assignment/auth/auth_view.dart';
+import 'package:rapidd_tech_assignment/src/view/auth_view.dart';
 import 'package:rapidd_tech_assignment/src/model/task.dart';
 import 'package:rapidd_tech_assignment/src/view_model/task_view_model.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +12,9 @@ import 'package:rapidd_tech_assignment/utils/storage_service.dart';
 import 'package:rapidd_tech_assignment/widgets/add_task_modal.dart';
 
 class TaskListView extends StatelessWidget {
-  const TaskListView({Key? key}) : super(key: key);
+  TaskListView({Key? key}) : super(key: key);
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class TaskListView extends StatelessWidget {
               return const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if(snapshot.hasData) {
+            } else if (snapshot.hasData) {
               final taskData = snapshot.data!;
               return ListView.builder(
                 itemCount: taskData.length,
@@ -72,6 +74,7 @@ class TaskListView extends StatelessWidget {
                       },
                       child: Card(
                         elevation: 5,
+                        surfaceTintColor: Colors.white,
                         child: ListTile(
                           title: Text(taskData[index].title),
                           subtitle: Text(DateFormat.MMMEd().add_jm().format(time)),
@@ -84,10 +87,22 @@ class TaskListView extends StatelessWidget {
                                   context: context,
                                   builder: (context) => AlertDialog(
                                         title: const Text('Share Task'),
-                                        content: TextField(
-                                          controller: emailController,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Enter Email',
+                                        content: Form(
+                                          key: formKey,
+                                          child: TextFormField(
+                                            controller: emailController,
+                                            decoration: const InputDecoration(
+                                              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                                              enabledBorder: OutlineInputBorder(borderSide: BorderSide()),
+                                              border: OutlineInputBorder(borderSide: BorderSide()),
+                                              labelText: 'Enter Email',
+                                            ),
+                                            validator: (value) {
+                                              if (value!.isEmpty || !value.contains('@') || !value.contains('.com') && !value.contains('.in')) {
+                                                return 'Incorrect Email address';
+                                              }
+                                              return null;
+                                            },
                                           ),
                                         ),
                                         actions: [
@@ -101,8 +116,11 @@ class TaskListView extends StatelessWidget {
                                           TextButton(
                                             onPressed: () async {
                                               String email = emailController.text;
-                                              await Provider.of<TaskViewModel>(context, listen: false).shareTask(taskData[index].id, email);
+                                              if (formKey.currentState!.validate()) {
+                                                await Provider.of<TaskViewModel>(context, listen: false).shareTask(taskData[index].id, email);
+                                              }
                                               Navigator.pop(context);
+                                              emailController.dispose();
                                             },
                                             child: const Text('Share'),
                                           ),
@@ -110,12 +128,18 @@ class TaskListView extends StatelessWidget {
                                       ));
                             },
                           ),
+                          leading: Checkbox(
+                            value: taskData[index].isDone,
+                            onChanged: (value) {
+                              Provider.of<TaskViewModel>(context, listen: false).updateIsDone(taskData[index].id, value!);
+                            },
+                          ),
                         ),
                       ));
                 },
               );
-            } else if(snapshot.hasError) {
-              if(kDebugMode) print(snapshot.error);
+            } else if (snapshot.hasError) {
+              if (kDebugMode) print(snapshot.error);
               return const Center(
                 child: Text('An error occurred'),
               );

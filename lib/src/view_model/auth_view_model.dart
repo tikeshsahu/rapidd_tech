@@ -31,7 +31,7 @@ class AuthViewModel extends ChangeNotifier {
       }
       StorageService.instance.save('USER_ID', authResult.user!.uid);
       StorageService.instance.save('USER_EMAIL', email);
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const TaskListView()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TaskListView()));
     } on FirebaseAuthException catch (error) {
       if (error.code == "user-not-found") {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("User not found, please sign up")));
